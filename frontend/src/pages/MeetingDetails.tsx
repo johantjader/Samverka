@@ -9,6 +9,7 @@ import { ChatPanel } from '../components/Chat/ChatPanel';
 import { UserProfileModal } from '../components/UserProfileModal';
 import { BottomNav } from '../components/Mobile/BottomNav';
 import { Edit2, Save, X, Lock, Check, History } from 'lucide-react';
+import Footer from '../components/Layout/Footer';
 
 export const MeetingDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -193,6 +194,7 @@ export const MeetingDetailsPage: React.FC = () => {
     const myVote = (slotId: string) => user ? getVoteStatus(slotId, user.userId) : undefined;
 
     return (
+        <>
         <div className="min-h-screen nnc-grid text-nnc-primary flex flex-col font-sans pb-16 md:pb-0">
             {/* Added pb-16 for mobile bottom nav space */}
             <UserProfileModal />
@@ -481,6 +483,8 @@ export const MeetingDetailsPage: React.FC = () => {
             {/* Bottom Nav for Mobile */}
             <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} unreadCount={unreadCount} />
         </div>
+        <Footer />
+        </>
     );
 };
 
