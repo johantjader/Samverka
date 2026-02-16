@@ -1,0 +1,30 @@
+{
+  "name": "samverka",
+  "version": "1.0.0",
+  "description": "En säker webbapplikation för myndighetssamverkan.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johantjader/Samverka.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "infra",
+    "shared"
+  ],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/johantjader/Samverka/issues"
+  },
+  "homepage": "https://github.com/johantjader/Samverka#readme"
+}

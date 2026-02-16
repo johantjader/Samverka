@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* NNC Dark Theme - Global Baseline */
+body {
+  background-color: #0f0f0f; /* nnc-base */
+  color: #eaeaea; /* nnc-primary */
+  font-family: 'Inter', sans-serif;
+
+  /* NNC Signature Grid Texture */
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+
+  min-height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'JetBrains Mono', monospace;
+  color: #eaeaea; /* nnc-primary */
+}
+
+/* Remove prefers-color-scheme media query - always dark */
+
+.nnc-grid {
+  background-color: #0f0f0f;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}

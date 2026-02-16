@@ -1,0 +1,98 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies (Root & Workspaces)
+        run: |
+          npm install --include=optional
+          npm install @rollup/rollup-linux-x64-gnu --save-optional --workspace=frontend
+          cd infra && npm install
+          cd ../backend && npm install
+          cd ../frontend && npm install
+
+      # Build shared library first as others depend on it
+      - name: Build Shared Library
+        run: npm run build -w @samverka/shared
+
+      # Build Backend (Optional validation, though Lambda code is deployed by CDK)
+      - name: Build Backend
+        run: npm run build -w backend
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Debug Secret
+        env:
+          THE_SECRET: ${{ secrets.JWT_SECRET }}
+        run: |
+          if [ -z "$THE_SECRET" ]; then
+            echo "::error::JWT_SECRET is NOT set or empty in GitHub Secrets!"
+          else
+            echo "SUCCESS: JWT_SECRET is found (length: ${#THE_SECRET})"
+          fi
+
+      - name: Deploy Infrastructure (CDK)
+        env:
+            JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: |
+          cd infra
+          # Check for npm if needed, but root install should handle dependencies
+          npx cdk deploy --require-approval never --outputs-file ../cdk-outputs.json
+        
+      - name: Extract CDK Outputs
+        id: cdk-outputs
+        run: |
+          # Use jq to extract values. We use the output file from the root directory
+          
+          # Debug: Cat the file to see structure
+          cat cdk-outputs.json
+          
+          BUCKET_NAME=$(jq -r '.InfraStack.FrontendBucketName' cdk-outputs.json)
+          DISTRIBUTION_ID=$(jq -r '.InfraStack.CloudFrontDistributionId' cdk-outputs.json)
+          API_URL=$(jq -r '.InfraStack.ApiUrl' cdk-outputs.json)
+          
+          echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_ENV
+          echo "DISTRIBUTION_ID=$DISTRIBUTION_ID" >> $GITHUB_ENV
+          echo "API_URL=$API_URL" >> $GITHUB_ENV
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          echo "VITE_API_URL=${{ env.API_URL }}" > .env.production
+          # Ensure env var is available during build if needed by Vite directly
+          export VITE_API_URL=${{ env.API_URL }}
+          npm run build
+
+      - name: Deploy to S3
+        run: |
+          # Sync all files except index.html (hashed assets are safely cacheable)
+          aws s3 sync frontend/dist s3://${{ env.BUCKET_NAME }} --delete --exclude "index.html"
+          # Upload index.html with no-cache to prevent stale cache MIME errors
+          aws s3 cp frontend/dist/index.html s3://${{ env.BUCKET_NAME }}/index.html --cache-control "no-cache, no-store, must-revalidate"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ env.DISTRIBUTION_ID }} --paths "/*"
