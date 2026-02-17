@@ -73,46 +73,56 @@ export default function Footer() {
                                 ×
                             </button>
                         </div>
-                        <div className="p-6 prose max-w-none text-nnc-primary">
-                            <h3>Minimal Data Collection</h3>
-                            <p>
-                                Samverka samlar in endast den data som är absolut nödvändig för att tjänsten ska fungera:
-                            </p>
-                            <ul>
-                                <li><strong>E-postadress:</strong> För att skicka magic links och mötesnotiser</li>
-                                <li><strong>Namn:</strong> För att identifiera deltagare i möten</li>
-                                <li><strong>Mötesdata:</strong> Titel, beskrivning, tidsförslag och röster</li>
-                            </ul>
+                        <div className="p-6 space-y-6 text-nnc-primary">
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Minimal datainsamling</h3>
+                                <p className="text-nnc-muted mb-3">
+                                    Samverka samlar in endast den data som är absolut nödvändig för att tjänsten ska fungera:
+                                </p>
+                                <ul className="list-disc list-inside space-y-1 text-nnc-muted">
+                                    <li><strong className="text-nnc-primary">E-postadress:</strong> För att skicka magic links och mötesnotiser</li>
+                                    <li><strong className="text-nnc-primary">Namn:</strong> För att identifiera deltagare i möten</li>
+                                    <li><strong className="text-nnc-primary">Mötesdata:</strong> Titel, beskrivning, tidsförslag och röster</li>
+                                </ul>
+                            </div>
 
-                            <h3>Automatisk Radering (Ephemeral Data)</h3>
-                            <p>
-                                All data raderas automatiskt genom DynamoDB TTL (Time To Live):
-                            </p>
-                            <ul>
-                                <li>Möten raderas 60 dagar efter skapande</li>
-                                <li>Om mötet bestäms raderas allt 14 dagar efter beslutet</li>
-                                <li>Ingen data sparas permanent</li>
-                            </ul>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Automatisk radering</h3>
+                                <p className="text-nnc-muted mb-3">
+                                    All data raderas automatiskt genom DynamoDB TTL (Time To Live):
+                                </p>
+                                <ul className="list-disc list-inside space-y-1 text-nnc-muted">
+                                    <li>Möten raderas 60 dagar efter skapande</li>
+                                    <li>Om mötet bestäms raderas allt 14 dagar efter beslutet</li>
+                                    <li>Ingen data sparas permanent</li>
+                                </ul>
+                            </div>
 
-                            <h3>Ingen Tracking eller Profilering</h3>
-                            <p>
-                                Vi använder <strong>inga cookies</strong>, ingen analytics och ingen tracking.
-                                Vi bygger inga användarprofiler.
-                            </p>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Ingen tracking eller profilering</h3>
+                                <p className="text-nnc-muted">
+                                    Vi använder <strong className="text-nnc-primary">inga cookies</strong>, ingen analytics och ingen tracking.
+                                    Vi bygger inga användarprofiler.
+                                </p>
+                            </div>
 
-                            <h3>Datalagring</h3>
-                            <p>
-                                All data lagras i AWS DynamoDB (EU-region: Stockholm, eu-north-1) och överförs
-                                krypterat via HTTPS.
-                            </p>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Datalagring</h3>
+                                <p className="text-nnc-muted">
+                                    All data lagras i AWS DynamoDB (EU-region: Stockholm, eu-north-1) och överförs
+                                    krypterat via HTTPS.
+                                </p>
+                            </div>
 
-                            <h3>Kontakt</h3>
-                            <p>
-                                För frågor om dataskydd, kontakta{' '}
-                                <a href="mailto:privacy@nononsenseconsulting.org">
-                                    privacy@nononsenseconsulting.org
-                                </a>
-                            </p>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Kontakt</h3>
+                                <p className="text-nnc-muted">
+                                    För frågor om dataskydd, kontakta{' '}
+                                    <a href="mailto:privacy@nononsenseconsulting.org" className="text-accent-tech hover:text-accent-tech/80 underline">
+                                        privacy@nononsenseconsulting.org
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                         <div className="sticky bottom-0 bg-nnc-base border-t border-nnc-subtle p-4 flex justify-end">
                             <button
@@ -139,44 +149,54 @@ export default function Footer() {
                                 ×
                             </button>
                         </div>
-                        <div className="p-6 prose max-w-none text-nnc-primary">
-                            <h3>Friktionsfri möteskoordinering för moderna team</h3>
-                            <p>
-                                Samverka är en <strong>open-source</strong> plattform för mötesbokning utan krångel.
-                                Vi tror att verktyg för samarbete ska vara enkla, snabba och respektera din integritet.
-                            </p>
+                        <div className="p-6 space-y-6 text-nnc-primary">
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Enkel mötesbokning utan krångel</h3>
+                                <p className="text-nnc-muted">
+                                    Samverka är en <strong className="text-nnc-primary">open-source</strong> plattform för mötesbokning.
+                                    Verktyg för samarbete ska vara enkla, snabba och respektera din integritet.
+                                </p>
+                            </div>
 
-                            <h3>Zero-Friction Filosofi</h3>
-                            <ul>
-                                <li><strong>Inga konton:</strong> Användare får en magic link via e-post</li>
-                                <li><strong>Ingen registrering:</strong> Skapa möte direkt från startsidan</li>
-                                <li><strong>Ephemeral data:</strong> All data raderas automatiskt</li>
-                                <li><strong>Open Source:</strong> Koden är fri och granskningsbar</li>
-                            </ul>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Grundprinciper</h3>
+                                <ul className="list-disc list-inside space-y-1 text-nnc-muted">
+                                    <li><strong className="text-nnc-primary">Inga konton:</strong> Användare får en magic link via e-post</li>
+                                    <li><strong className="text-nnc-primary">Ingen registrering:</strong> Skapa möte direkt från startsidan</li>
+                                    <li><strong className="text-nnc-primary">Ephemeral data:</strong> All data raderas automatiskt</li>
+                                    <li><strong className="text-nnc-primary">Open Source:</strong> Koden är fri och granskningsbar</li>
+                                </ul>
+                            </div>
 
-                            <h3>Hur fungerar det?</h3>
-                            <ol>
-                                <li>Skapa ett möte med tidsförslag</li>
-                                <li>Få en admin-länk via e-post</li>
-                                <li>Bjud in deltagare (får egna länkar)</li>
-                                <li>Alla röstar på tider som passar</li>
-                                <li>Du bestämmer vilken tid som gäller</li>
-                                <li>Kalenderinbjudan skickas automatiskt (.ics)</li>
-                            </ol>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Hur fungerar det?</h3>
+                                <ol className="list-decimal list-inside space-y-1 text-nnc-muted">
+                                    <li>Skapa ett möte med tidsförslag</li>
+                                    <li>Få en admin-länk via e-post</li>
+                                    <li>Bjud in deltagare (får egna länkar)</li>
+                                    <li>Alla röstar på tider som passar</li>
+                                    <li>Du bestämmer vilken tid som gäller</li>
+                                    <li>Kalenderinbjudan skickas automatiskt (.ics)</li>
+                                </ol>
+                            </div>
 
-                            <h3>Teknologi</h3>
-                            <p>
-                                Samverka är byggt med React, TypeScript, AWS Lambda och DynamoDB.
-                                Hela infrastrukturen definieras som kod (AWS CDK) och kan deployas på 5 minuter.
-                            </p>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Teknologi</h3>
+                                <p className="text-nnc-muted">
+                                    Samverka är byggt med React, TypeScript, AWS Lambda och DynamoDB.
+                                    Hela infrastrukturen definieras som kod (AWS CDK).
+                                </p>
+                            </div>
 
-                            <h3>Open Source</h3>
-                            <p>
-                                Projektet är licensierat under Apache 2.0 och källkoden finns på{' '}
-                                <a href="https://github.com/johantjader/samverka" target="_blank" rel="noopener noreferrer">
-                                    GitHub
-                                </a>.
-                            </p>
+                            <div>
+                                <h3 className="text-lg font-semibold text-nnc-primary mb-2">Open Source</h3>
+                                <p className="text-nnc-muted">
+                                    Projektet är licensierat under Apache 2.0 och källkoden finns på{' '}
+                                    <a href="https://github.com/johantjader/samverka" target="_blank" rel="noopener noreferrer" className="text-accent-tech hover:text-accent-tech/80 underline">
+                                        GitHub
+                                    </a>.
+                                </p>
+                            </div>
                         </div>
                         <div className="sticky bottom-0 bg-nnc-base border-t border-nnc-subtle p-4 flex justify-end">
                             <button
@@ -203,16 +223,16 @@ export default function Footer() {
                                 ×
                             </button>
                         </div>
-                        <div className="p-6 prose max-w-none text-nnc-primary">
-                            <p>
+                        <div className="p-6 space-y-4 text-nnc-primary">
+                            <p className="text-nnc-muted">
                                 Samverka är ett open source-projekt under aktiv utveckling. Vi uppskattar all feedback!
                             </p>
-                            <ul>
-                                <li><strong>Hittat en bugg?</strong> Beskriv vad som hände och vad du förväntade dig.</li>
-                                <li><strong>Har du en idé?</strong> Föreslå förbättringar eller nya funktioner.</li>
+                            <ul className="list-disc list-inside space-y-2 text-nnc-muted">
+                                <li><strong className="text-nnc-primary">Hittat en bugg?</strong> Beskriv vad som hände och vad du förväntade dig.</li>
+                                <li><strong className="text-nnc-primary">Har du en idé?</strong> Föreslå förbättringar eller nya funktioner.</li>
                             </ul>
-                            <p>
-                                Skapa en <strong>issue</strong> på GitHub så tittar vi på det.
+                            <p className="text-nnc-muted">
+                                Skapa en <strong className="text-nnc-primary">issue</strong> på GitHub så tittar vi på det.
                             </p>
                         </div>
                         <div className="sticky bottom-0 bg-nnc-base border-t border-nnc-subtle p-4 flex justify-between">
